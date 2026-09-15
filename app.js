@@ -1,6 +1,7 @@
-if (process.env.NODE_ENV != "production") {
-    require("dotenv").config();
-}
+require("dotenv").config();
+
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("MAP_TOKEN EXISTS:", !!process.env.MAP_TOKEN);
 
 const express = require("express");
 const app = express();
