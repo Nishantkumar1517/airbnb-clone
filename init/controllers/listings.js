@@ -39,17 +39,11 @@ module.exports.createListing = async (req, res, next) => {
         .send();
 
 
+    let url = req.file.path;
+    let filename = req.file.filename;
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-
-    if (req.file) {
-        newListing.image = { url: req.file.path, filename: req.file.filename };
-    } else if (req.body.listing.imageUrl) {
-        newListing.image = { url: req.body.listing.imageUrl, filename: "external-image" };
-    } else {
-        req.flash("error", "Please upload an image or provide an image URL.");
-        return res.redirect("/listings/new");
-    }
+    newListing.image = { url, filename };
 
     newListing.geometry = response.body.features[0].geometry;
 
